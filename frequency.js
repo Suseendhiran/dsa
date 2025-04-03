@@ -39,3 +39,23 @@ function same3n(arr1, arr2){
 const result = same3n([1,2,3],[1,4,16]) //false
 
 console.log("result",result)
+
+function isAnagram(str1, str2){
+    if(str1.length !== str2.length) return false;
+    let counter1 = {};
+    let counter2 = {};
+    for (let val of str1){
+        counter1[val] = (counter1[val] || 0 ) + 1
+    }
+    for (let val of str2){
+        counter2[val] = (counter2[val] || 0 ) + 1
+    }
+    for (let val in counter1){
+        if(counter2[val] !== counter1[val]) return false
+    }
+    return true
+    
+}
+const result3 = isAnagram("sdfs","sdfa")
+console.log("reult", result3)
+
