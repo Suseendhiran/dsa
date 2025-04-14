@@ -17,3 +17,37 @@ function sumZero(arr){
 }
 
 console.log(sumZero([-6,-4,-3,-1,0,2,3,5]))
+
+
+//my solution
+function countUniqueValues(arr){
+   // [-1,-1,-1,0,1,1,2,2,3,4,5]
+  // add whatever parameters you deem necessary - good luck!
+  let left = 0;
+  let right = 1;
+  let count = 0;
+  let temp = 0
+  while(left < arr.length){
+      console.log("init", left,right, arr[left], arr[right],count)
+      if(arr[left] === arr[right]){
+          right++
+      }
+      else if(arr[left] < arr[right]){
+          count = count + 1
+          left = right
+          if(right === arr.length-1){
+              count++
+          }
+          right++
+      }
+      else{
+          left++
+      }
+  }
+  console.log("count",count)
+  return count
+}
+
+countUniqueValues([1,1,1,1,1,2])
+
+//course solution
