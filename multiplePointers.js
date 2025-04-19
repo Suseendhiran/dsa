@@ -23,7 +23,7 @@ console.log(sumZero([-6,-4,-3,-1,0,2,3,5]))
 
 //my solution
 function countUniqueValues(arr){
-   // [-1,-1,-1,0,1,1,2,2,3,4,5]
+   // [-1,-1,-1,0,1,1,2,2,3,4,5] -> 7
   // add whatever parameters you deem necessary - good luck!
   let left = 0;
   let right = 1;
