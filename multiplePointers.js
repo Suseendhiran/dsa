@@ -1,3 +1,5 @@
+
+//function which accepts sorted array, returns first pair in array whose sum is zero
 function sumZero(arr){
     let left = 0;
     let right = arr.length - 1;
