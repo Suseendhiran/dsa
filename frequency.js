@@ -1,11 +1,11 @@
 //O(n**2)
-
+//squared elements should be present in arr2 with same no of occurences.
 function sameFrequency(arr1, arr2){
     if(arr1.length !== arr2.length){
         return "Not same"
     }
-    for (let i in arr1){
-        let squaredIndex = arr2.indexOf(arr1[i]**2)
+    for (let i in arr1){   //O(n)
+        let squaredIndex = arr2.indexOf(arr1[i]**2)  //O(n)
         if(!arr2.includes(arr1[i]**2)){
             return "Not same"
         }
