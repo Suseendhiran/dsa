@@ -15,6 +15,8 @@ function insertionSort(arr){
     return arr
 }
 
+
+
 function insertionSort2(arr){
     for(var i=1;i<arr.length;i++){
         var currVal = arr[i];
@@ -22,7 +24,7 @@ function insertionSort2(arr){
         for(var j=i-1;j>=0;j--){
             //console.log(i,j,arr[j]>currVal)
             if(arr[j]>currVal) arr[j+1] = arr[j]
-            else break
+            else break //left portion is already sorted, so need to break to persist current j, otherwise j will reach the left corner always 0
             console.log("inner",arr,i,j)
         }
         arr[j+1] = currVal
