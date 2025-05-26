@@ -1,6 +1,7 @@
 //Create a helper function to merge two arrays.
 //Create 2 pointers for two arrays and results array.
 //Compare the first element in arr1 with the first element in arr2, if arr1 element < arr2 element, push that element to the results array and increment that array pointer by one. If arr2 element < arr1 element, push arr2 element to results array and increment arr2 pointer by 1.
+//Assume both arrays are sorted
 
 
 function mergeArrays(arr1,arr2){
