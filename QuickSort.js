@@ -20,7 +20,7 @@ function getPivotIndex(arr, start = 0, end = arr.length-1){
     }
   }
   swap(arr,start,swapIndex)
-  return arr
+  return swapIndex
 }
 
-getPivotIndex(arr)
+console.log(getPivotIndex(arr))
