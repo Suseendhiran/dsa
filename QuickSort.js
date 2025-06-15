@@ -5,7 +5,7 @@ function swap (arr,i,j){
   return arr
 }
 
-let arr = [5,3,4,9,2,12]
+
 
 //console.log(swap(arr,2,2))
 
@@ -23,4 +23,33 @@ function getPivotIndex(arr, start = 0, end = arr.length-1){
   return swapIndex
 }
 
-console.log(getPivotIndex(arr))
+//console.log(getPivotIndex(arr))
+let arr = [5,3,4,9,2,12]
+console.log("init",arr)
+function quickSort(arr, left = 0, right = arr.length - 1){
+  console.log("pos",left,right)
+  if(left<right){
+    
+  let pivotIndex = getPivotIndex(arr, left, right)
+  console.log("piv", pivotIndex, arr)
+  //sort left side of the array
+  quickSort(arr, left, pivotIndex - 1)
+  //sort right side of the array
+  quickSort(arr,pivotIndex+1, right)
+  }
+  return arr
+  
+}
+console.log("output",quickSort(arr))
+
+
+
+
+
+
+
+
+
+
+
+
