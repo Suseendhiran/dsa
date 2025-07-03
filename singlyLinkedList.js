@@ -42,6 +42,72 @@ class SinglyLinkedList{
         }
         return current
     }
+    shift(){
+        if(!this.head) return undefined;
+        let currentNode = this.head;
+        this.head = this.head.next;
+        currentNode.next = null;
+        this.length--;
+        if(this.length === 0){
+            this.tail = null
+        }
+        return currentNode
+    }
+    unshift(val){
+        if(!this.head){
+            this.push(val)
+        } else{
+           let newNode = new Node(val);
+           newNode.next = this.head;
+           this.head = newNode;
+           this.length++;
+        }
+    }
+    get(index){
+        if(index<0 || index>=this.length) return undefined
+        let current = this.head;
+        let counter = 0;
+        while(counter!=index){
+            current = current.next;
+            counter++
+        }
+        return current
+    }
+    set(val,index){
+        let foundNode = this.get(index);
+        if(foundNode){
+            foundNode.val = val;
+            return "Value set"
+        }
+        return "Invalid Index"
+    }
+    insert(val,index){
+        if(index === 0 ) {
+            this.unshift(val)
+            return true
+        }
+        if(index === this.length) {
+            this.push(val)
+            return true
+        }
+        let newNode = new Node(val)
+        let pre = this.get(index-1)
+        //pre.next = newNode; // which will cut the connection
+        newNode.next = pre.next
+        pre.next = newNode
+        this.length++
+        return true
+    }
+    remove(index){
+        if(index < 0 || index > this.length) return undefined;
+        if(index === 0 ) unshift(val);
+        if(index+1 === this.length) pop();
+        let pre = this.get(index-1);
+        let removedNode = pre.next;
+        pre.next = removedNode.next
+        this.length--
+        return removedNode
+    }
 }
 
 const list = new SinglyLinkedList()
@@ -49,9 +115,18 @@ list.push("one")
 list.push("two")
 list.push("three")
 
-console.log("Popped",list.pop())
-console.log("Popped",list.pop())
-console.log("Popped",list.pop())
-console.log("Popped",list.pop())
-
+//console.log("Popped",list.pop())
+console.log("Shift",list.shift())
+list.shift()
+list.shift()
+list.push("new")
+list.unshift("unshift")
+list.unshift("unshift2")
+console.log("getval",list.get(2))
+//console.log("list",JSON.stringify(list))
+list.insert("insert",2)
 console.log("list",JSON.stringify(list))
+console.log("removed",list.remove(2))
+console.log("list",JSON.stringify(list))
+// console.log(list.set("setter",200))
+
