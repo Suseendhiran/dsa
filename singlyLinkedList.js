@@ -108,6 +108,29 @@ class SinglyLinkedList{
         this.length--
         return removedNode
     }
+    print(){
+        let arr = [];
+        let current = this.head
+        while(current){
+            arr.push(current.val);
+            current = current.next
+        }
+        console.log("LIST ARRAY",arr)
+    }
+    reverse(){
+        let node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        let prev = null
+        var next;
+        for(let i=0;i<this.length;i++){
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+        return this
+    }
 }
 
 const list = new SinglyLinkedList()
@@ -126,7 +149,10 @@ console.log("getval",list.get(2))
 //console.log("list",JSON.stringify(list))
 list.insert("insert",2)
 console.log("list",JSON.stringify(list))
-console.log("removed",list.remove(2))
+
 console.log("list",JSON.stringify(list))
+list.print()
+list.reverse()
+list.print()
 // console.log(list.set("setter",200))
 
