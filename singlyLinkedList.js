@@ -131,6 +131,26 @@ class SinglyLinkedList{
         }
         return this
     }
+     rotate(r) {
+       let k = r;
+       if(r<0){
+           k = r + this.length //for negative numbers, we can use this pattern
+       }
+        if(k === 0 || !this.head){
+            return this.head
+        }
+            for(let i=0;i<k;i++){
+                let current = this.head;
+                while(current.next!==null){
+                    current = current.next;
+                }
+                current.next = this.head;
+                this.tail = current.next
+                this.head = this.head.next
+                this.tail.next = null
+            }
+        return this
+    }
 }
 
 const list = new SinglyLinkedList()
