@@ -65,12 +65,56 @@ class BinarySearchTree{
         }
         return false
     }
+    bfs(){
+        let node = this.root;
+        let data = [];
+        let queue = [];
+        queue.push(this.root);
+        while(queue.length){
+            let node = queue.shift();
+            if(node.left) queue.push(node.left);
+            if(node.right) queue.push(node.right);
+            data.push(node.val)
+        }
+        return data
+    }
+    dfsPreOrder(){
+        let data = [];
+        function traverse(node){
+            data.push(node.val);
+            if(node.left) traverse(node.left);
+            if(node.right) traverse(node.right);
+        }
+        traverse(this.root);
+        return data
+    }
+    dfsPostOrder(){
+        let data = [];
+        function traverse(node){
+            if(node.left) traverse(node.left);
+            if(node.right) traverse(node.right);
+            data.push(node.val);
+        }
+        traverse(this.root);
+        return data
+    }
+    dfsInOrder(){
+        let data = [];
+        function traverse(node){
+            if(node.left) traverse(node.left);
+            data.push(node.val);
+            console.log(node.val)
+            if(node.right) traverse(node.right); 
+        }
+        traverse(this.root);
+        return data
+    }
 }
 
 //        20
 //    10      22
-//  7    15      23
-//     13   18
+//  7    15      29
+//     13  18  28 
 //    11
 let bst = new BinarySearchTree();
 bst.insert(20)
@@ -81,5 +125,7 @@ bst.insert(22)
 bst.insert(7)
 bst.insert(11)
 bst.insert(18)
-bst.insert(23)
+bst.insert(29)
+bst.insert(28)
+bst.dfsInOrder()
 console.log("bst",bst)
