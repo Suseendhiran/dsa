@@ -67,4 +67,6 @@ heap.insert(34);
 heap.insert(30);
 heap.insert(25);
 
+//[23, 34, 25, 78, 50, 36, 30]
+
 
