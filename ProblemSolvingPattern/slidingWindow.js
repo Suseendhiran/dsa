@@ -38,3 +38,25 @@ function maxSubArraySum(arr,num){
     return maxSum
 }
 console.log(maxSubArraySum([2,6,9,2,1,8,5,6,3], 3))
+
+
+function lengthOfLongestSubString(str){
+    let left = 0;
+    let right = 0;
+    let maxLength = 0;
+    let set = new Set();
+    while(right < str.length){
+      console.log(set)
+        if(!set.has(str[right])){
+            set.add(str[right]);
+            maxLength = Math.max(maxLength, set.size)
+            right++
+        }else{
+            set.delete(str[left])
+            left++
+        }
+    }
+    return maxLength
+}
+
+console.log(lengthOfLongestSubString('abcabcxcabb'))
