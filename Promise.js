@@ -128,3 +128,16 @@ async function checkUnreliablePromise(fn, attempt,delay=0){
   }
 }
 checkUnreliablePromise(apiCall,5).then(msg => {console.log(msg)}).catch(err => {console.log("err",err)})
+
+//PROBLEM -5 , Promise pipeline, where one promise resolved value will be the input to next promise. using reduce method
+
+const f1 = async (x) => x + 1;
+const f2 = async (x) => x * 2;
+const f3 = async (x) => x - 3;
+async function runPipeline(functions, input) {
+  return functions.reduce(
+    (promise, fn) => promise.then(fn),
+    Promise.resolve(2000)
+  );
+}
+runPipeline([f1, f2, f3], 5).then(msg => {console.log(msg)})
