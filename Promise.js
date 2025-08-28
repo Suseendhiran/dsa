@@ -11,12 +11,33 @@ async function withTimeout(promise, timer){
     console.log("Rejected error",err)
   })
 }
-async function fetchWithDelay(){
+async function fetchWithDelay(delay){
   return new Promise(resolve => {
     setTimeout(() => {
       resolve("Data fetched Successfully")
-    },8000)
+    },delay)
   })
 }
 
-await withTimeout(fetchWithDelay(),4000)
+await withTimeout(fetchWithDelay(2000),4000)
+
+
+//sequential promise chaining
+function delay(time) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    },time)
+  })
+}
+
+const tasks = [
+  () => delay(1000).then(() => "Task 1"),
+  () => delay(500).then(() => "Task 2"),
+  () => delay(300).then(() => "Task 3"),
+];
+
+tasks.forEach(async(proms) => {
+  const res = await proms();
+  console.log("res",res);
+})
