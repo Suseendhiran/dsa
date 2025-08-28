@@ -1,4 +1,4 @@
-//Implement a function that rejects if a promise takes too long. if promise takes more time than specified time, rejects promise
+//PROBLEM-1 Implement a function that rejects if a promise takes too long. if promise takes more time than specified time, rejects promise
 async function withTimeout(promise, timer){
   const timeoutPromise = new Promise((_,reject) => {
     setTimeout(() => {
@@ -22,7 +22,7 @@ async function fetchWithDelay(delay){
 await withTimeout(fetchWithDelay(2000),4000)
 
 
-//sequential promise chaining
+//PROBLEM-2 sequential promise chaining
 function delay(time) {
   return new Promise(resolve => {
     setTimeout(() => {
@@ -58,7 +58,7 @@ function delayCheck(time, msg,worker) {
     },time)
   })
 }
-//Parallel Execution with Concurrency Limit - Run promises in parallel but at most N at a time. define no of workers, each worker executes tasks from a common queue(index)
+//PROBLEM-3 Parallel Execution with Concurrency Limit - Run promises in parallel but at most N at a time. define no of workers, each worker executes tasks from a common queue(index)
 async function runWithConcurrencyLimit(tasks, limit) {
   const results = [];
   let index = 0; // shared pointer for tasks, same queue for {limit} workers
@@ -96,3 +96,35 @@ const concurrencyTasks = [
 
 // Run with concurrency limit = 2
 runWithConcurrencyLimit(concurrencyTasks, 2).then(console.log);
+
+// PROBLEM-4 Retrying Promise upto N times before rejecting
+
+function apiCall(attemptNo){
+  return new Promise((res,rej) => {
+    let random = Math.random()
+    if(random > 0.8){
+      res(`Success with ${random} with attempt ${attemptNo}`)
+    }
+    else{
+      rej(`Failed with ${random}`)
+    }
+  })
+}
+async function checkUnreliablePromise(fn, attempt,delay=0){
+  let count = 0;
+  while(count<attempt){
+    try{
+      return await fn(count+1)
+    }catch(err){
+      count++
+      if(err && delay > 0){
+        setTimeout(() => {console.log(`Attempt no ${count}`)},delay)
+      }
+      console.log(`Attempt no ${count}`)
+    }
+  }
+  if(count === attempt){
+    return `Not resolved after ${attempt} attempts`
+  }
+}
+checkUnreliablePromise(apiCall,5).then(msg => {console.log(msg)}).catch(err => {console.log("err",err)})
