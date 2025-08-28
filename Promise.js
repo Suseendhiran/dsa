@@ -141,3 +141,22 @@ async function runPipeline(functions, input) {
   );
 }
 runPipeline([f1, f2, f3], 5).then(msg => {console.log(msg)})
+
+//PROBLEM-5, defer promise, resolve/reject promise outside promise scope.
+//use case, on any event handlers, resolve the promise
+function defer(){
+  let resolve;
+  let reject;
+  const promise = new Promise((res,rej) => {
+      resolve = res
+      reject = rej
+  })
+  return {promise, resolve, reject}
+}
+const {promise, resolve, reject} = defer();
+console.log("Before",promise)
+setTimeout(() => {
+  resolve("Resolved outside Promise scope")
+},2000)
+
+promise.then(msg => {console.log("After",msg)})
