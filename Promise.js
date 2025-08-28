@@ -41,3 +41,58 @@ tasks.forEach(async(proms) => {
   const res = await proms();
   console.log("res",res);
 })
+
+
+//helper function for concurrency limit
+function delayCheck(time, msg,worker) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      let resolvedMessage = ""
+      if(worker) {
+        resolvedMessage = `${msg} resolved by worker ${worker}`
+      }
+      else{
+        resolvedMessage = msg
+      } 
+      resolve(resolvedMessage)
+    },time)
+  })
+}
+//Parallel Execution with Concurrency Limit - Run promises in parallel but at most N at a time. define no of workers, each worker executes tasks from a common queue(index)
+async function runWithConcurrencyLimit(tasks, limit) {
+  const results = [];
+  let index = 0; // shared pointer for tasks, same queue for {limit} workers
+
+  // Worker function: picks the next task and executes it
+  async function worker(workerNum) {
+    while (index < tasks.length) {
+      const currentIndex = index++;
+      const result = await tasks[currentIndex](workerNum);
+      results[currentIndex] = result; // keep order
+    }
+    return `Worker ${workerNum} completed all tasks` //optional, if we want statuses of each worker
+  }
+
+  // Creating workers based on Limit.
+  //Since index is shared for both the workers, if one worker done with a task, it will pick another task
+  //same with worker 2, process continues until all the tasks are completed.
+  //Ex: if limit is 2, two workers working continuously to complete all tasks
+  //based on shared queue(index is same)
+  const workers = Array.from({ length: limit }, (_,i) => worker(i+1));
+  // this console will log two promises, because async function will always returns promises.
+  console.log("workers",workers)
+  await Promise.all(workers).then(msg => console.log("Workers reolved all tasks",msg));
+
+  return results;
+}
+
+const concurrencyTasks = [
+  (worker) => delayCheck(1000, "Task 1",worker),
+  (worker) => delayCheck(500, "Task 2",worker),
+  (worker) => delayCheck(300, "Task 3",worker),
+  (worker) => delayCheck(800, "Task 4",worker),
+  (worker) => delayCheck(200, "Task 5",worker),
+];
+
+// Run with concurrency limit = 2
+runWithConcurrencyLimit(concurrencyTasks, 2).then(console.log);
