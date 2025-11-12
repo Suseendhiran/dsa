@@ -1,55 +1,33 @@
-function swap (arr,i,j){
-  let temp = arr[i]
-  arr[i] = arr[j];
-  arr[j]= temp
-  return arr
+function swap(arr,i,j){
+    let temp = arr[j]
+    arr[j] = arr[i]
+    arr[i] = temp
+    //return arr
 }
 
-
-
-//console.log(swap(arr,2,2))
-
-//[5,6,3,4,9,2,12]
-function getPivotIndex(arr, start = 0, end = arr.length-1){
-  let pivot = arr[start];
-  let swapIndex = start;
-  for(var i=start+1;i<arr.length;i++){
-    if(pivot > arr[i]){
-      swapIndex++;
-      swap(arr,swapIndex,i)
+//[5, 6,7, 2, 3, 9, 4, 12]
+//start can be anything within array length, it just picks that element as 
+//pivot and find its position in the array.
+function getPivotIndex(arr, start=0, end=arr.length-1){
+    let pivotElement = arr[start]; 
+    let swapIdx = start; // indicates the no of elements less than pivotElement, so once smaller elements moved to the left, we can use this variable to move pivot element to this swapIdx position
+    for(let i=start+1;i<arr.length;i++){
+        if(arr[i] < pivotElement){
+            swapIdx++
+            swap(arr,swapIdx,i)
+        }
     }
-  }
-  swap(arr,start,swapIndex)
-  return swapIndex
+    swap(arr,start,swapIdx)
+    return swapIdx
 }
 
-//console.log(getPivotIndex(arr))
-let arr = [5,3,4,9,2,12]
-console.log("init",arr)
-function quickSort(arr, left = 0, right = arr.length - 1){
-  console.log("pos",left,right)
-  if(left<right){
-    
-  let pivotIndex = getPivotIndex(arr, left, right)
-  console.log("piv", pivotIndex, arr)
-  //sort left side of the array
-  quickSort(arr, left, pivotIndex - 1)
-  //sort right side of the array
-  quickSort(arr,pivotIndex+1, right)
-  }
-  return arr
-  
+function quickSort(arr,left=0,right=arr.length-1){
+    if(left<right){ //at some point left >=right, this is the basecase
+        let pivotIndex = getPivotIndex(arr,left,right)
+        quickSort(arr, left, pivotIndex-1 )
+        quickSort(arr, pivotIndex+1 ,right)
+    }
+    return arr
 }
-console.log("output",quickSort(arr))
 
-
-
-
-
-
-
-
-
-
-
-
+console.log(quickSort([5, 6,7, 2, 3, 9, 4, 12]))
