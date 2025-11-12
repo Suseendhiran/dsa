@@ -3,14 +3,14 @@
 // once inner loop exits,
 
 function insertionSort(arr){
-    for(var i=1;i<arr.length;i++){
-        var currVal = arr[i];
-        for(var j=i-1;j>=0 && arr[j]>currVal;j--){
-            console.log(i,j,arr[j]>currVal)
+    for(let i=1;i<arr.length;i++){
+        let currVal = arr[i]  
+        for(var j=i-1;j>=0 && currVal<arr[j];j--){ //compare ith element with its previous elements, somewhere ith element > jth element, break 
             arr[j+1] = arr[j]
-            console.log(arr)
+            console.log("inner",currVal,j)
         }
-        arr[j+1] = currVal
+        console.log("outer",j)
+        arr[j+1] = currVal //using j+1, since j would be decremented by 1
     }
     return arr
 }
@@ -34,3 +34,4 @@ function insertionSort2(arr){
 }
 
 insertionSort([2,1,9,76,4])
+
