@@ -140,6 +140,21 @@ class DoublyLinkedList{
       }
       return false
     }
+    reverse(){
+        let prev = null;
+        let curr = this.head;
+        this.tail = this.head
+        var next;
+        while(curr){
+            next = curr.next;
+            curr.next = prev;
+            curr.prev = next;
+            prev = curr;
+            curr = next
+        }
+        this.head = prev
+        return this
+    }
   
 }
 
@@ -165,3 +180,4 @@ list.remove(4)
 
 //list.unshift("one")
 //console.log("Popped",list.pop())
+
